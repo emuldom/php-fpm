@@ -1,0 +1,16 @@
+version: "3.2"
+services:
+  php:
+    build:
+      dockerfile: ./dockerfile
+    image: haovegyam/php-fpm:7.4.10
+    container_name: php
+    restart: always
+    volumes:
+        - ./php/ldap.conf:/etc/ldap/ldap.conf
+        - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
+        - ./php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+        - ./web:/var/www/html
+    ports:
+      - 3000:3000
+    command: php -S="0.0.0.0:3000" -t="/var/www/html"
